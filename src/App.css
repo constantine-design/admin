@@ -1,0 +1,14 @@
+h1 {
+  text-align: center;
+  margin-top: 3rem;
+  margin-botom: 2rem;
+}
+.album-title {
+  text-transform: capitalize;
+}
+.album-button i {
+    text-transform: capitalize;
+    font-size: 1.1em;
+    font-style: normal;
+    font-weight: 300;
+}
