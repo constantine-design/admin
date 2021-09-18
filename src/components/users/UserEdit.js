@@ -3,7 +3,7 @@ import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-import { setUsers } from '../../store/actions';
+import { setUsers, newUser, updateUser, deleteUser } from '../../store/actions';
 import { connect } from 'react-redux';
 import {useHistory} from "react-router-dom";
 
@@ -55,26 +55,30 @@ const UserEdit = (props) => {
       <Button
         variant="contained" color="primary" style={{margin:"1rem 0.4rem"}}
         onClick={()=>{
-          if (findMatch) console.log('UPDATE');
-          else console.log('NEW')
+          if (findMatch) props.updateUser(currentUser);
+          else props.newUser(currentUser);
+          history.push("/users");
         }}
       >
-        { findMatch ? "Edit" : "Create" }
+        { findMatch ? "Save" : "Create" }
       </Button>
+      { findMatch &&
+        <Button
+          variant="contained" color="primary" style={{margin:"1rem 0.4rem"}}
+          onClick={() => {
+            props.deleteUser(currentUser.id);
+            history.push("/users");
+          }}
+        >
+          Delete
+        </Button>
+      }
       <Button
         variant="contained" style={{margin:"1rem 0.4rem"}}
         onClick={()=>makeFormDefault()}
       >
         { findMatch ? "Revert" : "Clean" }
       </Button>
-      { findMatch &&
-        <Button
-          variant="contained" color="primary" style={{margin:"1rem 0.4rem"}}
-          onClick={() => console.log('DELETE '+id ) }
-        >
-          Delete
-        </Button>
-      }
       <Button
         variant="contained" style={{margin:"1rem 0.4rem"}}
         onClick={() => history.push("/users")}
@@ -89,6 +93,6 @@ const mapStateToProps = (state) => ({
     users: state.users.users
 })
 const mapDispatchToProps = {
-  setUsers
+  setUsers, newUser, updateUser, deleteUser
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserEdit);

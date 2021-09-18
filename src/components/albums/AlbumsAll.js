@@ -20,7 +20,7 @@ const AlbumsAll = (props) => {
           <h1>Albums List</h1>
           { props.albums.length>0 &&
               props.albums.map(album=>(
-                <AlbumsAllItem onClick={() => history.push("/albums/"+ album.id)} >
+                <AlbumsAllItem key={"album"+album.id} onClick={() => history.push("/albums/"+ album.id)} >
                   <i>«{album.title}»</i>&nbsp; - &nbsp;<b>{ authorNameInUsers(album.userId) }</b>
                 </ AlbumsAllItem>
 
